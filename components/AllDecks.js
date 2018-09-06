@@ -1,8 +1,38 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, StyleSheet, FlatList, List, ListItem, TouchableOpacity } from 'react-native'
+import { gray } from '../utils/colors'
 import { fetchDecks } from '../utils/api'
 import { getDecks } from '../actions'
+
+const styles = StyleSheet.create({
+  deck: {
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'center',
+		margin: 12,
+		borderRadius: 5,
+		height: 200,
+		shadowColor: 'rgba(0,0,0,0.5)',
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+		elevation: 5,
+  },
+	title: {
+		margin: 12,
+		fontSize: 22,
+		fontWeight: 'bold'
+	},
+	subTitle: {
+		margin: 6,
+		fontSize: 16,
+		color: gray
+	}
+})
 
 export class AllDecks extends Component {
 	state = {
@@ -32,16 +62,21 @@ export class AllDecks extends Component {
 			)
 		}
 		
-		return decks ? <FlatList
+		return decks ? <View>
+				<Text style={styles.title} >Your decks</Text>
+				<FlatList
 				data={Object.values(decks)}
 			  keyExtractor={(item) => item.title}
 				renderItem={({item}) => (
-					<TouchableOpacity onPress={() => navigation.navigate('Deck', item)}>
-						<Text>{item.title}</Text>
-						<Text>{item.questions.length}</Text>
+					<TouchableOpacity 
+						style={styles.deck}
+						onPress={() => navigation.navigate('Deck', item)}>
+						<Text style={styles.title}>{item.title}</Text>
+						<Text style={styles.subTitle}>{item.questions.length} cards in deck</Text>	
 					</TouchableOpacity>
-				)}
-			/> : null
+					)}
+				/>
+			</View> : null
 			
 	}
 }

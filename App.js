@@ -10,6 +10,8 @@ import AddCard from './components/AddCard'
 import AddDeck from './components/AddDeck'
 import { Quiz as StartQuiz } from './components/Quiz'
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation'
+import { setLocalNotification } from './utils/notifications'
+
 
 const store = createStore(reducer, middleware)
 
@@ -19,11 +21,17 @@ const Tabs = createMaterialTopTabNavigator({
 		screen: AddDeck,
 		navigationOptions: () => ({
 			title: 'Add new deck'
-		})
+		}),
 	}
 }, {
-	initialRouteName: 'Decks'
-})
+		initialRouteName: 'Decks',
+		tabBarOptions: {
+			style: {
+				backgroundColor: '#12CC8B',
+			}
+		}
+	},
+)
 
 const Stack = createStackNavigator({
   Home: {
@@ -41,7 +49,7 @@ const Stack = createStackNavigator({
 	Deck: {
 		screen: Deck,
 		navigationOptions: ({navigation}) => ({
-			title: navigation.state.params.title,
+			title: `Deck: ${navigation.state.params.title}`,
 			titleStyle: {
         color: '#000000'
       },
@@ -53,7 +61,7 @@ const Stack = createStackNavigator({
 	AddCard: {
 		screen: AddCard,
 		navigationOptions: ({navigation}) => ({
-			title: navigation.state.params.title,
+			title: `Adding card to: ${navigation.state.params.title}`,
 			titleStyle: {
         color: '#000000'
       },
@@ -80,7 +88,9 @@ const Stack = createStackNavigator({
 })
 
 export default class App extends React.Component {
-	
+	componentDidMount() {
+		setLocalNotification()
+	}
   render() {
     return (
 			<Provider store={store}>
@@ -97,4 +107,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})

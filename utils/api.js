@@ -39,4 +39,3 @@ export function initialData() {
     AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(_allDecks))
     return _allDecks
 }
-

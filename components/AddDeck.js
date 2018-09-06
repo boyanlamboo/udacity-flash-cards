@@ -1,7 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux' 
 import { addDeck as addDeckAction } from '../actions'
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView } from 'react-native'
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'flex-start',
+		margin: 24
+	},
+	input: {
+		marginTop: 24,
+		marginBottom: 24,
+		fontSize: 22,
+		height: 45
+	}
+})
 
 export class AddDeck extends Component {
 	state = {
@@ -14,22 +28,29 @@ export class AddDeck extends Component {
 		dispatch(addDeckAction({
 			title,
 		}))
-		navigation.goBack()
+		navigation.navigate('Deck', {
+			title: title
+		})
 	}
 
 	render(){
 		const { title } = this.state
-		return <View>
+		return <KeyboardAvoidingView 
+						 style={styles.container}
+						 behavior='padding'
+						 enabled>
 			<TextInput 
 					placeholder='Deck title'
 					value={title}
 					onChangeText={(title) => this.setState({title})}
+					style={styles.input}
 				/>
 			<Button
-				title='Submit'
+				title='Create Deck'
 				onPress={this.submit}
+				color='#12CC8B'
 				/>
-		</View>
+		</KeyboardAvoidingView>
 	}
 }
 
