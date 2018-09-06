@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, StyleSheet, FlatList, List, ListItem, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, FlatList, List, ListItem, TouchableOpacity, Animated } from 'react-native'
 import { gray } from '../utils/colors'
 import { fetchDecks } from '../utils/api'
 import { getDecks } from '../actions'
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
 export class AllDecks extends Component {
 	state = {
-		loading: false
+		loading: false,
 	}
 
 	setLoading = (loading) => this.setState({
@@ -53,7 +53,7 @@ export class AllDecks extends Component {
 	}
 
 	render(){
-		const { loading } = this.state
+		const { loading, bounceValue } = this.state
 		const { decks, navigation } = this.props 
 		
 		if(loading){

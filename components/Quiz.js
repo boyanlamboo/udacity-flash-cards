@@ -134,7 +134,7 @@ export class Quiz extends Component {
 						<Text style={styles.title}>{questions[currentQuestion].answer}</Text>
 						<TouchableOpacity
 							onPress={() => this.switchView(QUESTION_VIEW)}>
-							<Text style={styles.answerToggle}>See Answer</Text>
+							<Text style={styles.answerToggle}>See Question</Text>
 						</TouchableOpacity>
 					</View>
 					
